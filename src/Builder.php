@@ -48,17 +48,17 @@ class Builder
     /**
      * @param  string  $file
      *
-     * @param $algo
+     * @param $algorithm
      *
      * @return string
      * @throws Exception
      */
-    public function sri(string $file, $algo)
+    public function sri(string $file, $algorithm)
     {
-        return $algo.'-'.base64_encode(
+        return $algorithm.'-'.base64_encode(
                 hash_file(
                     self::selectAlgorithm(
-                        $algo
+                        $algorithm
                     ), $file, true
                 )
             );
@@ -98,18 +98,18 @@ class Builder
     }
 
     /**
-     * @param  string  $algorithm
+     * @param  string  $algorithmrithm
      *
      * @return string
      * @throws Exception
      */
-    private static function selectAlgorithm(string $algorithm): string
+    private static function selectAlgorithm(string $algorithmrithm): string
     {
-        if ($algorithm === self::SHA256
-            || $algorithm === self::SHA384
-            || $algorithm === self::SHA512
+        if ($algorithmrithm === self::SHA256
+            || $algorithmrithm === self::SHA384
+            || $algorithmrithm === self::SHA512
         ) {
-            return $algorithm;
+            return $algorithmrithm;
         } else {
             throw new Exception('Invalid or Unsupported Hash Algorithm');
         }

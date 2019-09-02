@@ -29,8 +29,8 @@ class Vasri
     /**
      * @param  string  $type
      * @param  string  $path
-     * @param  bool  $enable_versioning
-     * @param  bool  $enable_sri
+     * @param  bool  $enableVersioning
+     * @param  bool  $enableSRI
      *
      * @return string
      * @throws Exception
@@ -38,14 +38,14 @@ class Vasri
     public static function vasri(
         string $type,
         string $path,
-        bool $enable_versioning = true,
-        bool $enable_sri = true
+        bool $enableVersioning = true,
+        bool $enableSRI = true
     ): string {
         $output = '';
 
         if (self::checkPath($path) === true) {
-            $output .= self::addAttribute($type, $path, $enable_versioning);
-            if ($enable_sri === true) {
+            $output .= self::addAttribute($type, $path, $enableVersioning);
+            if ($enableSRI === true) {
                 $output .= self::addSRI($path);
             }
 
@@ -89,15 +89,15 @@ class Vasri
     /**
      * @param  string  $type
      * @param  string  $path
-     * @param  bool  $enable_versioning
+     * @param  bool  $enableVersioning
      *
      * @return string
      * @throws Exception
      */
-    private static function addAttribute(string $type, string $path, bool $enable_versioning)
+    private static function addAttribute(string $type, string $path, bool $enableVersioning)
     {
         try {
-            if ($enable_versioning === true) {
+            if ($enableVersioning === true) {
                 $output = self::$builder->attribute($type)."=\"".self::addVersioning($path)."\"";
             } else {
                 $output = self::$builder->attribute($type)."=\"".$path."\"";
