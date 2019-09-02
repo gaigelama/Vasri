@@ -11,7 +11,7 @@ if ( ! function_exists('vasri')) {
      * @param  bool  $versioning
      * @param  bool  $sri
      *
-     * @return mixed
+     * @return string
      * @throws Exception
      */
     function vasri(string $type, string $path, bool $versioning = true, bool $sri = true): string
