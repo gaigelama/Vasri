@@ -1,5 +1,5 @@
-[![Build Status](https://scrutinizer-ci.com/g/ExoUNX/Vasri/badges/build.png?b=master)](https://scrutinizer-ci.com/g/ExoUNX/Vasri/build-status/master) 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ExoUNX/Vasri/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ExoUNX/Vasri/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/ExoUNX/Vasri/badges/build.png?b=master)](https://scrutinizer-ci.com/g/ExoUNX/Vasri/build-status/dev) 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ExoUNX/Vasri/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ExoUNX/Vasri/?branch=dev)
 ![License](https://img.shields.io/github/license/ExoUNX/Vasri.svg)
 
 # Vasri
