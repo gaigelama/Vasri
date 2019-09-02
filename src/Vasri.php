@@ -43,7 +43,7 @@ class Vasri
     ): string {
         $output = '';
 
-        if (self::checkPath($path) === true) {
+        if (self::isPath($path) === true) {
             $output .= self::addAttribute($type, $path, $enableVersioning);
             if ($enableSRI === true) {
                 $output .= self::addSRI($path);
@@ -115,7 +115,7 @@ class Vasri
      *
      * @return bool
      */
-    private static function checkPath(string $path): bool
+    private static function isPath(string $path): bool
     {
         return File::exists(public_path($path));
     }
