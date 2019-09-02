@@ -96,18 +96,16 @@ class Vasri
      */
     private static function addAttribute(string $type, string $path, bool $enable_versioning)
     {
-        if ($enable_versioning === true) {
-            try {
-                return self::$builder->attribute($type)."=\"".self::addVersioning($path)."\"";
-            } catch (Exception $e) {
-                throw new Exception($e);
+        try {
+            if ($enable_versioning === true) {
+                $output = self::$builder->attribute($type)."=\"".self::addVersioning($path)."\"";
+            } else {
+                $output = self::$builder->attribute($type)."=\"".$path."\"";
             }
-        } else {
-            try {
-                return self::$builder->attribute($type)."=\"".$path."\"";
-            } catch (Exception $e) {
-                throw new Exception($e);
-            }
+
+            return $output;
+        } catch (Exception $e) {
+            throw new Exception($e);
         }
     }
 
