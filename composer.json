@@ -2,7 +2,7 @@
   "name": "exounx/Vasri",
   "description": "Easy subresource integrity for security and versioning for cache busting",
   "keywords": ["asset", "versioning", "cache", "busting", "sri", "subresource", "integrity", "laravel", "mix"],
-  "homepage": "https://github.com/ExoUNX/vasri",
+  "homepage": "https://github.com/ExoUNX/Vasri",
   "license": "MIT",
   "authors": [
     {
