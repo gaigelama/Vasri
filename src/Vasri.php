@@ -91,12 +91,12 @@ class Vasri
     /**
      * @param  string  $type
      * @param  string  $path
-     * @param  string  $enable_versioning
+     * @param  bool  $enable_versioning
      *
      * @return string
      * @throws Exception
      */
-    private static function addAttribute(string $type, string $path, string $enable_versioning)
+    private static function addAttribute(string $type, string $path, bool $enable_versioning)
     {
         if ($enable_versioning === true) {
             try {
