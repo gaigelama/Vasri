@@ -54,8 +54,6 @@ class Vasri
         } else {
             throw new Exception('Incorrect file path or file does not exist');
         }
-
-
     }
 
     /**
