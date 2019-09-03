@@ -54,7 +54,7 @@ class Builder
         $algorithm = self::selectAlgorithm();
 
         return $algorithm.'-'.base64_encode(
-                hash_file($algorithm, $file, true)
+                hash_file($algorithm, public_path($file), true)
             );
     }
 
@@ -67,7 +67,7 @@ class Builder
      */
     public function versioning(string $file)
     {
-        return '?id='.hash_file('md5', $file);
+        return '?id='.hash_file('md5', public_path($file));
     }
 
     /**

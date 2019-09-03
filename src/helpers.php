@@ -15,6 +15,8 @@ if ( ! function_exists('vasri')) {
      */
     function vasri(string $path, bool $versioning = true, bool $sri = true): string
     {
-        return Vasri::vasri($path, $versioning, $sri);
+        $vasri = new Vasri();
+
+        return $vasri->vasri($path, $versioning, $sri);
     }
 }
