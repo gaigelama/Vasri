@@ -14,8 +14,8 @@ if ( ! function_exists('vasri')) {
      * @return string
      * @throws Exception
      */
-    function vasri(string $type, string $path, bool $versioning = true, bool $sri = true): string
+    function vasri(string $path, bool $versioning = true, bool $sri = true): string
     {
-        return Vasri::vasri($type, $path, $versioning, $sri);
+        return Vasri::vasri($path, $versioning, $sri);
     }
 }

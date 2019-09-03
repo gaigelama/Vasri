@@ -32,7 +32,6 @@ class Vasri
     }
 
     /**
-     * @param  string  $type
      * @param  string  $path
      * @param  bool  $enableVersioning
      * @param  bool  $enableSRI
@@ -42,14 +41,13 @@ class Vasri
      */
     public static function vasri(
         string $path,
-        string $type = null,
         bool $enableVersioning = true,
         bool $enableSRI = true
     ): string {
         $output = '';
 
         if (self::isPath($path) === true) {
-            $output .= self::addAttribute($type, $path, $enableVersioning);
+            $output .= self::addAttribute($path, $enableVersioning);
             if ($enableSRI === true) {
                 $output .= self::addSRI($path);
             }
@@ -92,7 +90,6 @@ class Vasri
     }
 
     /**
-     * @param  string  $type
      * @param  string  $path
      * @param  bool  $enableVersioning
      *
