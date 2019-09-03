@@ -9,7 +9,6 @@ if ( ! function_exists('vasri')) {
      * @param  string  $path
      * @param  bool  $versioning
      * @param  bool  $sri
-     *
      * @param  string  $keyword
      *
      * @return string

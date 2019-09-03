@@ -96,6 +96,13 @@ class Builder
         return $attribute;
     }
 
+    /**
+     * Constructs crossOrigin attribute
+     *
+     * @param  string  $keyword
+     *
+     * @return string
+     */
     public function crossOrigin(string $keyword): string
     {
         return "crossorigin=\"".$keyword."\"";
