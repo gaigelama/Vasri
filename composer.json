@@ -1,6 +1,6 @@
 {
     "name": "exounx/vasri",
-    "description": "Easy subresource integrity for security and versioning for cache busting",
+    "description": "Easy subresource integrity and versioning for local assets",
     "keywords": [
         "asset",
         "versioning",

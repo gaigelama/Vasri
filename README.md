@@ -3,7 +3,7 @@
 ![License](https://img.shields.io/github/license/ExoUNX/Vasri.svg)
 
 # Vasri
-Easy subresource integrity for security and versioning for cache busting
+Easy subresource integrity and versioning for local assets
 
 ## Install
 
@@ -13,7 +13,17 @@ composer require exounx/vasri
 
 ## Usage
 
-##### Work In Progress 
+For CSS
+
+```
+<link rel="stylesheet" {!! vasri('/css/app.css') !!}/>
+```
+
+For JS
+
+```
+<script {!! vasri('/js/app.js') !!}></script>
+```
 
 ## License
 
