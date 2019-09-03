@@ -36,20 +36,23 @@ class Vasri
      * @param  bool  $enableVersioning
      * @param  bool  $enableSRI
      *
+     * @param  string  $keyword
+     *
      * @return string
      * @throws Exception
      */
     public function vasri(
         string $path,
         bool $enableVersioning = true,
-        bool $enableSRI = true
+        bool $enableSRI = true,
+        string $keyword = 'anonymous'
     ): string {
         $output = '';
 
         if (self::isPath($path) === true) {
             $output .= $this->addAttribute($path, $enableVersioning);
             if ($enableSRI === true) {
-                $output .= $this->addSRI($path);
+                $output .= $this->addSRI($path, $keyword);
             }
 
             return $output;
@@ -75,9 +78,9 @@ class Vasri
      * @return string
      * @throws Exception
      */
-    private function addSRI(string $path): string
+    private function addSRI(string $path, string $keyword): string
     {
-        return "integrity=\"".$this->builder->sri($path)."\"";
+        return " integrity=\"".$this->builder->sri($path)."\" ".$this->builder->crossOrigin($keyword);
     }
 
     /**

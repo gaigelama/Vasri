@@ -97,12 +97,25 @@ class Builder
     }
 
     /**
+     * Constructs crossOrigin attribute
+     *
+     * @param  string  $keyword
+     *
+     * @return string
+     */
+    public function crossOrigin(string $keyword): string
+    {
+        return "crossorigin=\"".$keyword."\"";
+    }
+
+    /**
      * Checks config for hash algorithm and if nothing is found default to SHA384
      *
      * @return string
      * @throws Exception
      */
-    private static function selectAlgorithm(): string
+    private
+    static function selectAlgorithm(): string
     {
         if ( ! empty(config('vasri.hash-algorithm'))) {
             $algorithm = config('vasri.hash-algorithm');
@@ -126,8 +139,10 @@ class Builder
      *
      * @return string
      */
-    private static function parseExtension(string $path): string
-    {
+    private
+    static function parseExtension(
+        string $path
+    ): string {
         return preg_replace("#\?.*#", "", pathinfo($path, PATHINFO_EXTENSION));
     }
 
