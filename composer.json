@@ -1,5 +1,5 @@
 {
-  "name": "exounx/Vasri",
+  "name": "exounx/vasri",
   "description": "Easy subresource integrity for security and versioning for cache busting",
   "keywords": ["asset", "versioning", "cache", "busting", "sri", "subresource", "integrity", "laravel", "mix"],
   "homepage": "https://github.com/ExoUNX/Vasri",
