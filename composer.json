@@ -38,7 +38,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "ExoUNX\\Vasri\\VasriServiceProvider"
+        "ExoUNX\\Vasri\\Providers\\VasriServiceProvider"
       ]
     }
   }
