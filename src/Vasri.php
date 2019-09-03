@@ -7,8 +7,13 @@ use Illuminate\Support\Facades\File;
 use Exception;
 
 /**
+ * Access class for Vasri
  * Class Vasri
+ *
  * @package ExoUNX\Vasri
+ * @author  Gaige Lama <gaigelama@gmail.com>
+ * @license MIT License
+ * @link    https://github.com/ExoUNX/Vasri
  */
 class Vasri
 {
@@ -36,8 +41,8 @@ class Vasri
      * @throws Exception
      */
     public static function vasri(
-        string $type,
         string $path,
+        string $type = null,
         bool $enableVersioning = true,
         bool $enableSRI = true
     ): string {
@@ -94,13 +99,13 @@ class Vasri
      * @return string
      * @throws Exception
      */
-    private static function addAttribute(string $type, string $path, bool $enableVersioning)
+    private static function addAttribute(string $path, bool $enableVersioning)
     {
         try {
             if ($enableVersioning === true) {
-                $output = self::$builder->attribute($type)."=\"".self::addVersioning($path)."\"";
+                $output = self::$builder->attribute($path)."=\"".self::addVersioning($path)."\"";
             } else {
-                $output = self::$builder->attribute($type)."=\"".$path."\"";
+                $output = self::$builder->attribute($path)."=\"".$path."\"";
             }
 
             return $output;

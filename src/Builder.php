@@ -6,8 +6,13 @@ namespace ExoUNX\Vasri;
 use Exception;
 
 /**
+ * Builds resources for the access class
  * Class Builder
+ *
  * @package ExoUNX\Vasri
+ * @author  Gaige Lama <gaigelama@gmail.com>
+ * @license MIT License
+ * @link    https://github.com/ExoUNX/Vasri
  */
 class Builder
 {
@@ -26,16 +31,6 @@ class Builder
      * SHA512 Hash Algorithm
      */
     private const SHA512 = 'sha512';
-
-    /**
-     *
-     */
-    private const SCRIPT = 'script';
-
-    /**
-     *
-     */
-    private const LINK = 'link';
 
     /**
      * Builder constructor.
@@ -75,44 +70,50 @@ class Builder
     }
 
     /**
-     * @param  string  $type
+     * @param  string  $path
      *
      * @return string
      * @throws Exception
      */
-    public function attribute(string $type): string
+    public function attribute(string $path): string
     {
+        $extension = self::parseExtension($path);
 
-        switch ($type) {
-            case self::SCRIPT:
-                $attr = 'src';
+        switch ($extension) {
+            case 'css':
+                $attribute = 'href';
                 break;
-            case self::LINK:
-                $attr = 'href';
+            case 'js':
+                $attribute = 'src';
                 break;
             default:
-                throw new Exception("Invalid or Unsupported Attribute");
+                throw new Exception('Invalid or Unsupported Extension');
         }
 
-        return $attr;
+        return $attribute;
     }
 
     /**
-     * @param  string  $algorithmrithm
+     * @param  string  $algorithm
      *
      * @return string
      * @throws Exception
      */
-    private static function selectAlgorithm(string $algorithmrithm): string
+    private static function selectAlgorithm(string $algorithm): string
     {
-        if ($algorithmrithm === self::SHA256
-            || $algorithmrithm === self::SHA384
-            || $algorithmrithm === self::SHA512
+        if ($algorithm === self::SHA256
+            || $algorithm === self::SHA384
+            || $algorithm === self::SHA512
         ) {
-            return $algorithmrithm;
+            return $algorithm;
         } else {
             throw new Exception('Invalid or Unsupported Hash Algorithm');
         }
+    }
+
+    private static function parseExtension(string $path): string
+    {
+        return preg_replace("#\?.*#", "", pathinfo($path, PATHINFO_EXTENSION));
     }
 
 }
