@@ -71,7 +71,6 @@ class Vasri
 
     /**
      * @param  string  $path
-     * @param  string  $hash
      *
      * @return string
      * @throws Exception

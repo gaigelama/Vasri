@@ -1,7 +1,7 @@
 <?php
 
 
-namespace ExoUNX\Vasri;
+namespace ExoUNX\Vasri\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

@@ -6,7 +6,7 @@ if ( ! function_exists('vasri')) {
     /**
      * Get file and generate version and SRI if enabled
      *
-     * @param $path
+     * @param  $path
      * @param  bool  $versioning
      * @param  bool  $sri
      *
