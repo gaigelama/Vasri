@@ -21,14 +21,14 @@ class Vasri
     /**
      * @var Builder|null
      */
-    private static $builder = null;
+    private $builder = null;
 
     /**
      * Vasri constructor.
      */
     public function __construct()
     {
-        self::$builder = self::loadBuilder();
+        $this->builder = $this->loadBuilder();
     }
 
     /**
@@ -39,7 +39,7 @@ class Vasri
      * @return string
      * @throws Exception
      */
-    public static function vasri(
+    public function vasri(
         string $path,
         bool $enableVersioning = true,
         bool $enableSRI = true
@@ -47,9 +47,9 @@ class Vasri
         $output = '';
 
         if (self::isPath($path) === true) {
-            $output .= self::addAttribute($path, $enableVersioning);
+            $output .= $this->addAttribute($path, $enableVersioning);
             if ($enableSRI === true) {
-                $output .= self::addSRI($path);
+                $output .= $this->addSRI($path);
             }
 
             return $output;
@@ -64,9 +64,9 @@ class Vasri
      *
      * @return string
      */
-    private static function addVersioning(string $path): string
+    private function addVersioning(string $path): string
     {
-        return self::$builder->versioning($path);
+        return $this->builder->versioning($path);
     }
 
     /**
@@ -75,15 +75,15 @@ class Vasri
      * @return string
      * @throws Exception
      */
-    private static function addSRI(string $path): string
+    private function addSRI(string $path): string
     {
-        return self::$builder->sri($path);
+        return "integrity=\"".$this->builder->sri($path)."\"";
     }
 
     /**
      * @return Builder
      */
-    private static function loadBuilder(): Builder
+    private function loadBuilder(): Builder
     {
         return new Builder();
     }
@@ -95,13 +95,13 @@ class Vasri
      * @return string
      * @throws Exception
      */
-    private static function addAttribute(string $path, bool $enableVersioning)
+    private function addAttribute(string $path, bool $enableVersioning)
     {
         try {
             if ($enableVersioning === true) {
-                $output = self::$builder->attribute($path)."=\"".self::addVersioning($path)."\"";
+                $output = $this->builder->attribute($path)."=\"".$path.self::addVersioning($path)."\"";
             } else {
-                $output = self::$builder->attribute($path)."=\"".$path."\"";
+                $output = $this->builder->attribute($path)."=\"".$path."\"";
             }
 
             return $output;
