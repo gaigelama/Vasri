@@ -41,25 +41,26 @@ class Builder
     }
 
     /**
+     * Constructs a valid SRI string
+     *
      * @param  string  $file
      *
-     * @param $algorithm
      *
      * @return string
      * @throws Exception
      */
-    public function sri(string $file, $algorithm)
+    public function sri(string $file)
     {
+        $algorithm = self::selectAlgorithm();
+
         return $algorithm.'-'.base64_encode(
-                hash_file(
-                    self::selectAlgorithm(
-                        $algorithm
-                    ), $file, true
-                )
+                hash_file($algorithm, $file, true)
             );
     }
 
     /**
+     * Constructs a query string containing the md5 hash of the input file
+     *
      * @param  string  $file
      *
      * @return string
@@ -70,6 +71,8 @@ class Builder
     }
 
     /**
+     * Sets the HTML attribute based on the file extension and throws an exception if invalid
+     *
      * @param  string  $path
      *
      * @return string
@@ -94,23 +97,35 @@ class Builder
     }
 
     /**
-     * @param  string  $algorithm
+     * Checks config for hash algorithm and if nothing is found default to SHA384
      *
      * @return string
      * @throws Exception
      */
-    private static function selectAlgorithm(string $algorithm): string
+    private static function selectAlgorithm(): string
     {
-        if ($algorithm === self::SHA256
-            || $algorithm === self::SHA384
-            || $algorithm === self::SHA512
-        ) {
-            return $algorithm;
+        if ( ! empty(config('vasri.hash-algorithm'))) {
+            $algorithm = config('vasri.hash-algorithm');
+            if ($algorithm !== self::SHA256
+                && $algorithm !== self::SHA384
+                && $algorithm !== self::SHA512
+            ) {
+                throw new Exception('Invalid or Unsupported Hash Algorithm');
+            }
         } else {
-            throw new Exception('Invalid or Unsupported Hash Algorithm');
+            $algorithm = self::SHA384;
         }
+
+        return $algorithm;
     }
 
+    /**
+     * Removes everything but the short extension
+     *
+     * @param  string  $path
+     *
+     * @return string
+     */
     private static function parseExtension(string $path): string
     {
         return preg_replace("#\?.*#", "", pathinfo($path, PATHINFO_EXTENSION));

@@ -76,9 +76,9 @@ class Vasri
      * @return string
      * @throws Exception
      */
-    private static function addSRI(string $path, string $hash = 'sha384'): string
+    private static function addSRI(string $path): string
     {
-        return self::$builder->sri($path, $hash);
+        return self::$builder->sri($path);
     }
 
     /**
