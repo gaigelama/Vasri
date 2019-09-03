@@ -1,5 +1,5 @@
 {
-  "name": "exounx/Vasri",
+  "name": "exounx/vasri",
   "description": "Easy subresource integrity for security and versioning for cache busting",
   "keywords": ["asset", "versioning", "cache", "busting", "sri", "subresource", "integrity", "laravel", "mix"],
   "homepage": "https://github.com/ExoUNX/Vasri",
@@ -12,8 +12,9 @@
   ],
   "require": {
     "php": "^7.1.3",
-    "illuminate/support": "^5.8",
-    "ext-json": "*"
+    "ext-json": "*",
+    "illuminate/filesystem": "^5.8",
+    "illuminate/support": "^5.8"
   },
   "require-dev": {
     "phpunit/phpunit": "~5.7|~6.5|~7.5"
@@ -37,7 +38,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "ExoUNX\\Vasri\\VasriServiceProvider"
+        "ExoUNX\\Vasri\\Providers\\VasriServiceProvider"
       ]
     }
   }
