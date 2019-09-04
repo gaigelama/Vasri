@@ -17,17 +17,19 @@ use ExoUNX\Vasri\ManifestBuilder;
 class VasriCommand extends Command
 {
     /**
+     * Command signature
      * @var string
      */
     protected $signature = 'vasri:build';
 
     /**
+     * Command description
      * @var string
      */
     protected $description = 'Build Manifest';
 
     /**
-     * VasriCommand constructor. Inherits constructor from Illuminate\Console\Command
+     * Inherits constructor from Illuminate\Console\Command
      */
     public function __construct()
     {
@@ -42,6 +44,5 @@ class VasriCommand extends Command
         $manifest = new ManifestBuilder();
 
         $manifest->buildManifest();
-
     }
 }

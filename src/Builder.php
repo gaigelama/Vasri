@@ -139,10 +139,8 @@ class Builder
      *
      * @return string
      */
-    private
-    static function parseExtension(
-        string $path
-    ): string {
+    private static function parseExtension(string $path): string
+    {
         return preg_replace("#\?.*#", "", pathinfo($path, PATHINFO_EXTENSION));
     }
 
