@@ -22,16 +22,12 @@ class ManifestReader
      * @param  string  $file
      *
      * @return array
+     * @throws Exception
      */
-    private function jsonFileToArray(string $file): array
-    {
-        return json_decode(file_get_contents($file), true);
-    }
-
     public function getManifest(string $file): array
     {
         if (File::exists($file)) {
-            return $this->jsonFileToArray($file);
+            return json_decode(file_get_contents($file), true);
         } else {
             throw new Exception('Incorrect file path or file does not exist for '.$file);
         }
