@@ -73,14 +73,14 @@ class Builder
     /**
      * Sets the HTML attribute based on the file extension and throws an exception if invalid
      *
-     * @param  string  $path
+     * @param  string  $file
      *
      * @return string
      * @throws Exception
      */
-    public function attribute(string $path): string
+    public function attribute(string $file): string
     {
-        $extension = self::parseExtension($path);
+        $extension = self::parseExtension($file);
 
         switch ($extension) {
             case 'css':
@@ -114,8 +114,7 @@ class Builder
      * @return string
      * @throws Exception
      */
-    private
-    static function selectAlgorithm(): string
+    private static function selectAlgorithm(): string
     {
         if ( ! empty(config('vasri.hash-algorithm'))) {
             $algorithm = config('vasri.hash-algorithm');
@@ -139,10 +138,8 @@ class Builder
      *
      * @return string
      */
-    private
-    static function parseExtension(
-        string $path
-    ): string {
+    private static function parseExtension(string $path): string
+    {
         return preg_replace("#\?.*#", "", pathinfo($path, PATHINFO_EXTENSION));
     }
 

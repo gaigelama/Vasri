@@ -31,4 +31,19 @@ class VasriServiceProvider extends ServiceProvider
         );
     }
 
+    /**
+     * Register bindings in the container.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->mergeConfigFrom(
+            base_path('/config/vasri.php'), 'vasri'
+        );
+        $this->commands([
+            \ExoUNX\Vasri\Commands\VasriCommand::class,
+        ]);
+    }
+
 }
