@@ -3,6 +3,7 @@
 
 namespace ExoUNX\Vasri;
 
+use Illuminate\Support\Facades\File;
 use Exception;
 
 /**
@@ -45,11 +46,11 @@ class ManifestBuilder
      */
     public function __construct()
     {
+        $this->manifestReader       = new ManifestReader();
+        $this->builder              = new Builder();
         $this->isMixManifestEnabled = config('vasri.mix-manifest');
         $this->mixManifestPath      = public_path('mix-manifest.json');
         $this->mixManifest          = $this->manifestReader->getManifest($this->mixManifestPath);
-        $this->manifestReader       = new ManifestReader();
-        $this->builder              = new Builder();
     }
 
     /**
@@ -59,7 +60,7 @@ class ManifestBuilder
     private function buildAssets(): array
     {
         $vasriManifest = [];
-        if ($this->isMixManifestEnabled === true) {
+        if ($this->isMixManifestEnabled === true && File::exists(public_path($this->mixManifestPath))) {
             $manifest = $this->mixManifest;
             foreach ($manifest as $key => $val) {
                 $vasriManifest[] = $key;
