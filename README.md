@@ -13,7 +13,18 @@ This is also meant to the Laravel Mix helper.
 composer require exounx/vasri
 ```
 
+Publish the config
+```
+php artisan vendor:publish --provider="ExoUNX\Vasri\Providers\VasriServiceProvider"
+```
+
 ## Usage
+
+You'll need to generate the manifest first by running the following command
+
+```
+php artisan vasri:build
+```
 
 For CSS
 
