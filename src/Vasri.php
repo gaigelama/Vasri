@@ -58,7 +58,7 @@ class Vasri
             return $output;
 
         } else {
-            throw new Exception('Incorrect file path or file does not exist');
+            throw new Exception('Incorrect file path or file does not exist for local asset');
         }
     }
 
