@@ -19,25 +19,6 @@ class ManifestReader
 {
 
     /**
-     * @var
-     */
-    private $mixManifest;
-
-    /**
-     * @var
-     */
-    private $vasriManifest;
-
-    /**
-     * ManifestReader constructor.
-     */
-    public function __construct()
-    {
-        $this->mixManifest   = public_path('mix-manifest.json');
-        $this->vasriManifest = base_path('vasri-manifest.json');
-    }
-
-    /**
      * @param  string  $file
      *
      * @return array
@@ -47,29 +28,12 @@ class ManifestReader
         return json_decode(file_get_contents($file), true);
     }
 
-    /**
-     * @return array
-     * @throws Exception
-     */
-    public function getMixManifest(): array
+    public function getManifest(array $file): array
     {
-        if (File::exists($this->mixManifest)) {
-            return $this->jsonFileToArray($this->mixManifest);
+        if (File::exists($file)) {
+            return $this->jsonFileToArray($file);
         } else {
-            throw new Exception('Incorrect file path or file does not exist for mix-manifest.json');
-        }
-    }
-
-    /**
-     * @return array
-     * @throws Exception
-     */
-    public function getVasriManifest(): array
-    {
-        if (File::exists($this->mixManifest)) {
-            return $this->jsonFileToArray($this->vasriManifest);
-        } else {
-            throw new Exception('Incorrect file path or file does not exist for vasri-manifest.json');
+            throw new Exception('Incorrect file path or file does not exist for '.$file);
         }
     }
 

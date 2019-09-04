@@ -41,7 +41,7 @@ class Vasri
     {
         $this->builder        = new Builder();
         $this->manifestReader = new ManifestReader();
-        $this->vasriManifest  = $this->manifestReader->getVasriManifest();
+        $this->vasriManifest  = $this->manifestReader->getManifest(base_path('vasri-manifest.json'));
     }
 
     /**

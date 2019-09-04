@@ -23,6 +23,11 @@ class ManifestBuilder
     private $mixManifest;
 
     /**
+     * @var array
+     */
+    private $mixManifestPath;
+
+    /**
      * @var ManifestReader
      */
     private $manifestReader;
@@ -37,9 +42,10 @@ class ManifestBuilder
      */
     public function __construct()
     {
-        $this->mixManifest    = config('vasri.mix-manifest');
-        $this->manifestReader = new ManifestReader();
-        $this->builder        = new Builder();
+        $this->mixManifest     = config('vasri.mix-manifest');
+        $this->mixManifestPath = $this->manifestReader->getManifest(public_path('mix-manifest.json'));
+        $this->manifestReader  = new ManifestReader();
+        $this->builder         = new Builder();
     }
 
     /**
@@ -50,7 +56,7 @@ class ManifestBuilder
     {
         $vasriManifest = [];
         if ($this->mixManifest === true) {
-            $manifest = $this->manifestReader->getMixManifest();
+            $manifest = $this->manifestReader->getManifest($this->mixManifestPath);
             foreach ($manifest as $key => $val) {
                 $vasriManifest[] = $key;
             }
