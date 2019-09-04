@@ -18,21 +18,34 @@ use Exception;
 class Vasri
 {
 
+
     /**
-     * @var Builder|null
+     * @var Builder
      */
-    private $builder = null;
+    private $builder;
+
+    /**
+     * @var ManifestReader
+     */
+    private $manifestReader;
+
+    /**
+     * @var array
+     */
+    private $vasriManifest;
 
     /**
      * Vasri constructor.
      */
     public function __construct()
     {
-        $this->builder = $this->loadBuilder();
+        $this->builder        = new Builder();
+        $this->manifestReader = new ManifestReader();
+        $this->vasriManifest  = $this->manifestReader->getVasriManifest();
     }
 
     /**
-     * @param  string  $path
+     * @param  string  $file
      * @param  bool  $enableVersioning
      * @param  bool  $enableSRI
      *
@@ -42,17 +55,17 @@ class Vasri
      * @throws Exception
      */
     public function vasri(
-        string $path,
+        string $file,
         bool $enableVersioning = true,
         bool $enableSRI = true,
         string $keyword = 'anonymous'
     ): string {
         $output = '';
 
-        if (self::isPath($path) === true) {
-            $output .= $this->addAttribute($path, $enableVersioning);
+        if (self::isFile($file) === true) {
+            $output .= $this->addAttribute($file, $enableVersioning);
             if ($enableSRI === true) {
-                $output .= $this->addSRI($path, $keyword);
+                $output .= $this->addSRI($file, $keyword);
             }
 
             return $output;
@@ -63,48 +76,40 @@ class Vasri
     }
 
     /**
-     * @param  string  $path
+     * @param  string  $file
      *
      * @return string
      */
-    private function addVersioning(string $path): string
+    private function addVersioning(string $file): string
     {
-        return $this->builder->versioning($path);
+        return $this->builder->versioning($file);
     }
 
     /**
-     * @param  string  $path
+     * @param  string  $file
      *
      * @return string
      * @throws Exception
      */
-    private function addSRI(string $path, string $keyword): string
+    private function addSRI(string $file, string $keyword): string
     {
-        return " integrity=\"".$this->builder->sri($path)."\" ".$this->builder->crossOrigin($keyword);
+        return " integrity=\"".$this->vasriManifest[$file]['sri']."\" ".$this->builder->crossOrigin($keyword);
     }
 
     /**
-     * @return Builder
-     */
-    private function loadBuilder(): Builder
-    {
-        return new Builder();
-    }
-
-    /**
-     * @param  string  $path
+     * @param  string  $file
      * @param  bool  $enableVersioning
      *
      * @return string
      * @throws Exception
      */
-    private function addAttribute(string $path, bool $enableVersioning)
+    private function addAttribute(string $file, bool $enableVersioning)
     {
         try {
             if ($enableVersioning === true) {
-                $output = $this->builder->attribute($path)."=\"".$path.self::addVersioning($path)."\"";
+                $output = $this->builder->attribute($file)."=\"".$file.$this->vasriManifest[$file]['version']."\"";
             } else {
-                $output = $this->builder->attribute($path)."=\"".$path."\"";
+                $output = $this->builder->attribute($file)."=\"".$file."\"";
             }
 
             return $output;
@@ -115,13 +120,13 @@ class Vasri
 
     /**
      *
-     * @param  string  $path
+     * @param  string  $file
      *
      * @return bool
      */
-    private static function isPath(string $path): bool
+    private static function isFile(string $file): bool
     {
-        return File::exists(public_path($path));
+        return File::exists(public_path($file));
     }
 
 }

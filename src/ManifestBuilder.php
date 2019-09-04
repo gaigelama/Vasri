@@ -3,7 +3,6 @@
 
 namespace ExoUNX\Vasri;
 
-use ExoUNX\Vasri\ManifestReader;
 use Exception;
 
 /**
@@ -24,9 +23,14 @@ class ManifestBuilder
     private $mixManifest;
 
     /**
-     * @var \ExoUNX\Vasri\ManifestReader
+     * @var ManifestReader
      */
     private $manifestReader;
+
+    /**
+     * @var Builder
+     */
+    private $builder;
 
     /**
      * ManifestBuilder constructor.
@@ -34,7 +38,8 @@ class ManifestBuilder
     public function __construct()
     {
         $this->mixManifest    = config('vasri.mix-manifest');
-        $this->manifestReader = $this->loadManifestReader();
+        $this->manifestReader = new ManifestReader();
+        $this->builder        = new Builder();
     }
 
     /**
@@ -64,20 +69,29 @@ class ManifestBuilder
     }
 
     /**
+     * @return array
      * @throws Exception
      */
-    public function buildManifest(): void
+    private function buildManifest(): array
     {
-        file_put_contents(base_path('vasri-manifest.json'),
-            stripslashes(json_encode($this->buildAssets(), JSON_PRETTY_PRINT)));
+        $manifest = [];
+        foreach ($this->buildAssets() as $asset) {
+            $manifest[$asset] = [
+                'sri'     => $this->builder->sri($asset),
+                'version' => $this->builder->versioning($asset)
+            ];
+        }
+
+        return $manifest;
     }
 
     /**
-     * @return \ExoUNX\Vasri\ManifestReader
+     * @throws Exception
      */
-    private function loadManifestReader(): ManifestReader
+    public function deployManifest(): void
     {
-        return new ManifestReader();
+        file_put_contents(base_path('vasri-manifest.json'),
+            stripslashes(json_encode($this->buildManifest(), JSON_PRETTY_PRINT)));
     }
 
 }

@@ -43,6 +43,6 @@ class VasriCommand extends Command
     {
         $manifest = new ManifestBuilder();
 
-        $manifest->buildManifest();
+        $manifest->deployManifest();
     }
 }
