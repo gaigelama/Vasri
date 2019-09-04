@@ -35,7 +35,7 @@ If you don't wish to use the mix manifest you can disable it in the config
 'mix-manifest' => false,
 ```
 
-You'll need to specify your assets manually in the config if disable mix-manifest suppoirt
+You'll need to specify your assets manually in the config if you disable mix-manifest support
 
 ```
 'assets' => [
