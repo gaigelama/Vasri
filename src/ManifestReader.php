@@ -28,7 +28,7 @@ class ManifestReader
         return json_decode(file_get_contents($file), true);
     }
 
-    public function getManifest(array $file): array
+    public function getManifest(string $file): array
     {
         if (File::exists($file)) {
             return $this->jsonFileToArray($file);
