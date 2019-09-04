@@ -79,16 +79,6 @@ class Vasri
      * @param  string  $file
      *
      * @return string
-     */
-    private function addVersioning(string $file): string
-    {
-        return $this->builder->versioning($file);
-    }
-
-    /**
-     * @param  string  $file
-     *
-     * @return string
      * @throws Exception
      */
     private function addSRI(string $file, string $keyword): string
