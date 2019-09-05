@@ -33,14 +33,6 @@ class Builder
     private const SHA512 = 'sha512';
 
     /**
-     * Builder constructor.
-     */
-    public function __construct()
-    {
-        //TODO Set config options here
-    }
-
-    /**
      * Constructs a valid SRI string
      *
      * @param  string  $file
