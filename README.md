@@ -5,7 +5,7 @@
 # Vasri
 Easy subresource integrity and versioning for local assets
 
-This is also meant to the Laravel Mix helper.
+This is also meant to replace the Laravel Mix helper.
 
 ## Install
 
