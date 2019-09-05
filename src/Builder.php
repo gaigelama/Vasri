@@ -100,7 +100,7 @@ class Builder
      */
     public function crossOrigin(string $keyword): string
     {
-        return "crossorigin=\"".$keyword."\"";
+        return 'crossorigin="'.$keyword.'"';
     }
 
     /**
@@ -135,7 +135,7 @@ class Builder
      */
     private static function parseExtension(string $path): string
     {
-        return preg_replace("#\?.*#", "", pathinfo($path, PATHINFO_EXTENSION));
+        return preg_replace("#\?.*#", '', pathinfo($path, PATHINFO_EXTENSION));
     }
 
 }
