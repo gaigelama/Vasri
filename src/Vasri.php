@@ -35,6 +35,11 @@ class Vasri
     private $vasriManifest;
 
     /**
+     * @var mixed
+     */
+    private $appEnvironment;
+
+    /**
      * Vasri constructor.
      */
     public function __construct()
@@ -42,6 +47,7 @@ class Vasri
         $this->builder        = new Builder();
         $this->manifestReader = new ManifestReader();
         $this->vasriManifest  = $this->manifestReader->getManifest(base_path('vasri-manifest.json'));
+        $this->appEnvironment = env('APP_ENV', 'production');
     }
 
     /**
@@ -60,16 +66,8 @@ class Vasri
         bool $enableSRI = true,
         string $keyword = 'anonymous'
     ): string {
-        $output = '';
-
-        if (self::isFile($file) === true) {
-            $output .= $this->addAttribute($file, $enableVersioning);
-            if ($enableSRI === true) {
-                $output .= $this->addSRI($file, $keyword);
-            }
-
-            return $output;
-
+        if (self::isPublicFile($file) === true) {
+            return $this->addAttributes($file, $enableVersioning, $enableSRI, $keyword);
         } else {
             throw new Exception('Incorrect file path or file does not exist for local asset');
         }
@@ -78,34 +76,47 @@ class Vasri
     /**
      * @param  string  $file
      *
+     * @param  string  $keyword
+     *
      * @return string
-     * @throws Exception
      */
-    private function addSRI(string $file, string $keyword): string
+    private function getSRI(string $file, string $keyword): string
     {
-        return " integrity=\"".$this->vasriManifest[$file]['sri']."\" ".$this->builder->crossOrigin($keyword);
+        return ' integrity="'.$this->vasriManifest[$file]['sri'].'" '.$this->builder->crossOrigin($keyword);
     }
 
     /**
      * @param  string  $file
      * @param  bool  $enableVersioning
      *
+     * @param  bool  $enableSRI
+     * @param  string  $keyword
+     *
      * @return string
      * @throws Exception
      */
-    private function addAttribute(string $file, bool $enableVersioning)
+    private function addAttributes(string $file, bool $enableVersioning, bool $enableSRI, string $keyword): string
     {
-        try {
-            if ($enableVersioning === true) {
-                $output = $this->builder->attribute($file)."=\"".$file.$this->vasriManifest[$file]['version']."\"";
-            } else {
-                $output = $this->builder->attribute($file)."=\"".$file."\"";
-            }
+        $output = $this->getSourceAttribute($file, $this->getVersioning($file));
 
-            return $output;
-        } catch (Exception $e) {
-            throw new Exception($e);
+        if ($this->appEnvironment === 'local' && ! config('vasri.local-versioning') || ! $enableVersioning) {
+            $output = $this->getSourceAttribute($file);
         }
+        if ($enableSRI) {
+            $output .= $this->getSRI($file, $keyword);
+        }
+
+        return $output;
+    }
+
+    private function getVersioning(string $file): string
+    {
+        return $this->vasriManifest[$file]['version'];
+    }
+
+    private function getSourceAttribute(string $file, string $version = ''): string
+    {
+        return $this->builder->attribute($file).'="'.$file.$version.'"';
     }
 
     /**
@@ -114,7 +125,7 @@ class Vasri
      *
      * @return bool
      */
-    private static function isFile(string $file): bool
+    private static function isPublicFile(string $file): bool
     {
         return File::exists(public_path($file));
     }

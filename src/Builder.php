@@ -33,7 +33,7 @@ class Builder
     private const SHA512 = 'sha512';
 
     /**
-     * Constructs a valid SRI string
+     * Constructs a valid SRI string based on the input file
      *
      * @param  string  $file
      *
@@ -89,7 +89,10 @@ class Builder
     }
 
     /**
-     * Constructs crossOrigin attribute
+     * Constructs crossOrigin attribute based on the keyword
+     * Valid HTML options
+     * anonymous | use-credentials | blank
+     *
      *
      * @param  string  $keyword
      *
@@ -97,7 +100,7 @@ class Builder
      */
     public function crossOrigin(string $keyword): string
     {
-        return "crossorigin=\"".$keyword."\"";
+        return 'crossorigin="'.$keyword.'"';
     }
 
     /**
@@ -132,7 +135,7 @@ class Builder
      */
     private static function parseExtension(string $path): string
     {
-        return preg_replace("#\?.*#", "", pathinfo($path, PATHINFO_EXTENSION));
+        return preg_replace("#\?.*#", '', pathinfo($path, PATHINFO_EXTENSION));
     }
 
 }
