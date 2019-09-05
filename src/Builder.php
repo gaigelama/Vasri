@@ -33,7 +33,7 @@ class Builder
     private const SHA512 = 'sha512';
 
     /**
-     * Constructs a valid SRI string
+     * Constructs a valid SRI string based on the input file
      *
      * @param  string  $file
      *
@@ -89,7 +89,10 @@ class Builder
     }
 
     /**
-     * Constructs crossOrigin attribute
+     * Constructs crossOrigin attribute based on the keyword
+     * Valid HTML options
+     * anonymous | use-credentials | blank
+     *
      *
      * @param  string  $keyword
      *
