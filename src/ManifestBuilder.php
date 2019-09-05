@@ -49,7 +49,7 @@ class ManifestBuilder
         $this->manifestReader       = new ManifestReader();
         $this->builder              = new Builder();
         $this->isMixManifestEnabled = config('vasri.mix-manifest');
-        $this->mixManifestPath      = (string)public_path('mix-manifest.json');
+        $this->mixManifestPath      = (string) public_path('mix-manifest.json');
         $this->mixManifest          = $this->manifestReader->getManifest($this->mixManifestPath);
     }
 
@@ -65,15 +65,10 @@ class ManifestBuilder
             foreach ($manifest as $key => $val) {
                 $vasriManifest[] = $key;
             }
-
         } elseif ( ! empty(config('vasri.assets'))) {
-
             $vasriManifest = config('vasri.assets');
-
         } else {
-
             throw new Exception('No manifest or assets found');
-
         }
 
         return $vasriManifest;
