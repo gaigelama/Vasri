@@ -35,6 +35,11 @@ class Vasri
     private $vasriManifest;
 
     /**
+     * @var mixed
+     */
+    private $appEnvironment;
+
+    /**
      * Vasri constructor.
      */
     public function __construct()
@@ -42,6 +47,7 @@ class Vasri
         $this->builder        = new Builder();
         $this->manifestReader = new ManifestReader();
         $this->vasriManifest  = $this->manifestReader->getManifest(base_path('vasri-manifest.json'));
+        $this->appEnvironment = env('APP_ENV', 'production');
     }
 
     /**
@@ -96,7 +102,7 @@ class Vasri
     private function addAttribute(string $file, bool $enableVersioning)
     {
         try {
-            if ($enableVersioning === true) {
+            if ($enableVersioning === true && $this->appEnvironment !== 'local') {
                 $output = $this->builder->attribute($file)."=\"".$file.$this->vasriManifest[$file]['version']."\"";
             } else {
                 $output = $this->builder->attribute($file)."=\"".$file."\"";
