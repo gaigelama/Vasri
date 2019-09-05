@@ -97,22 +97,16 @@ class Vasri
      */
     private function addAttributes(string $file, bool $enableVersioning, bool $enableSRI, string $keyword): string
     {
-        try {
-            if ($enableVersioning && ($this->appEnvironment !== 'local' || config('vasri.local-versioning'))) {
-                $output = $this->getSourceAttribute($file, $this->getVersioning($file));
-            } elseif ($this->appEnvironment === 'local' && ! config('vasri.local-versioning')) {
-                $output = $this->getSourceAttribute($file);
-            } else {
-                $output = $this->getSourceAttribute($file);
-            }
-            if ($enableSRI) {
-                $output .= $this->getSRI($file, $keyword);
-            }
+        $output = $this->getSourceAttribute($file, $this->getVersioning($file));
 
-            return $output;
-        } catch (Exception $e) {
-            throw new Exception($e);
+        if ($this->appEnvironment === 'local' && ! config('vasri.local-versioning') || ! $enableVersioning) {
+            $output = $this->getSourceAttribute($file);
         }
+        if ($enableSRI) {
+            $output .= $this->getSRI($file, $keyword);
+        }
+
+        return $output;
     }
 
     private function getVersioning(string $file): string
