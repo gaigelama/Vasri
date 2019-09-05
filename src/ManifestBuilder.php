@@ -60,7 +60,7 @@ class ManifestBuilder
     private function buildAssets(): array
     {
         $vasriManifest = [];
-        if ($this->isMixManifestEnabled === true && File::exists(public_path($this->mixManifestPath))) {
+        if ($this->isMixManifestEnabled === true && File::exists($this->mixManifestPath)) {
             $manifest = $this->mixManifest;
             foreach ($manifest as $key => $val) {
                 $vasriManifest[] = $key;
