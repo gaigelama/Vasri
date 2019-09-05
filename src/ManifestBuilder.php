@@ -51,7 +51,6 @@ class ManifestBuilder
         $this->builder              = new Builder();
         $this->isMixManifestEnabled = config('vasri.mix-manifest');
         $this->mixManifestPath      = public_path('mix-manifest.json');
-        $this->mixManifest          = $this->manifestReader->getManifest($this->mixManifestPath);
     }
 
     /**
@@ -62,7 +61,7 @@ class ManifestBuilder
     {
         $vasriManifest = [];
         if ($this->isMixManifestEnabled && File::exists($this->mixManifestPath)) {
-            $manifest = $this->mixManifest;
+            $manifest = $this->manifestReader->getManifest($this->mixManifestPath);
             foreach ($manifest as $key => $val) {
                 $vasriManifest[] = $key;
             }
