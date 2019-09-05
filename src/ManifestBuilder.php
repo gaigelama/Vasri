@@ -65,10 +65,10 @@ class ManifestBuilder
             foreach ($manifest as $key => $val) {
                 $vasriManifest[] = $key;
             }
-        } elseif ( ! empty(config('vasri.assets'))) {
+        } elseif ( ! empty(config('vasri.assets')) && gettype(config('vasri.assets')) === 'array') {
             $vasriManifest = config('vasri.assets');
         } else {
-            throw new Exception('No manifest or assets found');
+            throw new Exception('No manifest or valid assets found');
         }
 
         return $vasriManifest;
