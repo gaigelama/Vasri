@@ -49,7 +49,7 @@ class ManifestBuilder
         $this->manifestReader       = new ManifestReader();
         $this->builder              = new Builder();
         $this->isMixManifestEnabled = config('vasri.mix-manifest');
-        $this->mixManifestPath      = (string) public_path('mix-manifest.json');
+        $this->mixManifestPath      = public_path('mix-manifest.json');
         $this->mixManifest          = $this->manifestReader->getManifest($this->mixManifestPath);
     }
 
