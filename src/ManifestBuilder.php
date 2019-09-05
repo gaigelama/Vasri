@@ -24,7 +24,7 @@ class ManifestBuilder
     private $isMixManifestEnabled;
 
     /**
-     * @var array
+     * @var string
      */
     private $mixManifestPath;
     /**
@@ -43,6 +43,7 @@ class ManifestBuilder
 
     /**
      * ManifestBuilder constructor.
+     * @throws Exception
      */
     public function __construct()
     {
@@ -60,20 +61,15 @@ class ManifestBuilder
     private function buildAssets(): array
     {
         $vasriManifest = [];
-        if ($this->isMixManifestEnabled === true && File::exists(public_path($this->mixManifestPath))) {
+        if ($this->isMixManifestEnabled && File::exists($this->mixManifestPath)) {
             $manifest = $this->mixManifest;
             foreach ($manifest as $key => $val) {
                 $vasriManifest[] = $key;
             }
-
         } elseif ( ! empty(config('vasri.assets'))) {
-
             $vasriManifest = config('vasri.assets');
-
         } else {
-
             throw new Exception('No manifest or assets found');
-
         }
 
         return $vasriManifest;
