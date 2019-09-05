@@ -24,7 +24,7 @@ class ManifestBuilder
     private $isMixManifestEnabled;
 
     /**
-     * @var array
+     * @var string
      */
     private $mixManifestPath;
     /**
@@ -43,6 +43,7 @@ class ManifestBuilder
 
     /**
      * ManifestBuilder constructor.
+     * @throws Exception
      */
     public function __construct()
     {
