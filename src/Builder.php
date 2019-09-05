@@ -41,7 +41,7 @@ class Builder
      * @return string
      * @throws Exception
      */
-    public function sri(string $file)
+    public function sri(string $file): string
     {
         $algorithm = self::selectAlgorithm();
 
@@ -57,7 +57,7 @@ class Builder
      *
      * @return string
      */
-    public function versioning(string $file)
+    public function versioning(string $file): string
     {
         return '?id='.hash_file('md5', public_path($file));
     }
