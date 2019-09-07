@@ -86,7 +86,7 @@ class Vasri
      */
     private function getSRI(string $file, string $keyword): string
     {
-        return ' integrity="'.$this->vasriManifest[$file]['sri'].'" '.$this->builder->crossOrigin($keyword);
+        return sprintf('integrity="%s" %s', $this->vasriManifest[$file]['sri'], $this->builder->crossOrigin($keyword));
     }
 
     /**
@@ -110,7 +110,7 @@ class Vasri
         }
         if ($enableSRI) {
 
-            $output .= $this->getSRI($file, $keyword);
+            $output = sprintf('%s %s', $output, $this->getSRI($file, $keyword));
 
         }
 
@@ -136,7 +136,7 @@ class Vasri
      */
     private function getSourceAttribute(string $file, string $version = ''): string
     {
-        return $this->builder->attribute($file).'="'.$file.$version.'"';
+        return sprintf('%s="%s%s"', $this->builder->attribute($file), $file, $version);
     }
 
     /**
