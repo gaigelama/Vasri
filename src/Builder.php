@@ -112,15 +112,21 @@ class Builder
     private static function selectAlgorithm(): string
     {
         if ( ! empty(config('vasri.hash-algorithm'))) {
+
             $algorithm = config('vasri.hash-algorithm');
+
             if ($algorithm !== self::SHA256
                 && $algorithm !== self::SHA384
                 && $algorithm !== self::SHA512
             ) {
+
                 throw new Exception('Invalid or Unsupported Hash Algorithm');
+
             }
         } else {
+
             $algorithm = self::SHA384;
+
         }
 
         return $algorithm;
