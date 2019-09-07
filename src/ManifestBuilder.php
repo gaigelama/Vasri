@@ -19,7 +19,11 @@ class ManifestBuilder
 {
 
     /**
-     * @var
+     * @var array
+     */
+    private $vasriConfig;
+    /**
+     * @var bool
      */
     private $isMixManifestEnabled;
 
@@ -49,26 +53,36 @@ class ManifestBuilder
     {
         $this->manifestReader       = new ManifestReader();
         $this->builder              = new Builder();
-        $this->isMixManifestEnabled = config('vasri.mix-manifest');
+        $this->vasriConfig          = config('vasri');
+        $this->isMixManifestEnabled = $this->vasriConfig['mix-manifest'];
         $this->mixManifestPath      = public_path('mix-manifest.json');
     }
 
     /**
+     * @param  array  $mixManifest
+     * @param  array  $vasriConfigAssets
+     *
      * @return array
      * @throws Exception
      */
-    private function buildAssets(): array
+    private function buildAssets(array $mixManifest = [], array $vasriConfigAssets = []): array
     {
         $vasriManifest = [];
+
         if ($this->isMixManifestEnabled && File::exists($this->mixManifestPath)) {
-            $manifest = $this->manifestReader->getManifest($this->mixManifestPath);
-            foreach ($manifest as $key => $val) {
+
+            foreach ($mixManifest as $key => $val) {
                 $vasriManifest[] = $key;
             }
-        } elseif ( ! empty(config('vasri.assets'))) {
-            $vasriManifest = config('vasri.assets');
+
+        } elseif ( ! empty($vasriConfigAssets)) {
+
+            $vasriManifest = $this->vasriConfig['assets'];
+
         } else {
-            throw new Exception('No manifest or assets found');
+
+            throw new Exception('No manifest or valid assets found');
+
         }
 
         return $vasriManifest;
@@ -81,7 +95,13 @@ class ManifestBuilder
     private function buildManifest(): array
     {
         $manifest = [];
-        foreach ($this->buildAssets() as $asset) {
+
+        foreach (
+            $this->buildAssets(
+                $this->manifestReader->getManifest($this->mixManifestPath),
+                $this->vasriConfig['assets']
+            ) as $asset
+        ) {
             $manifest[$asset] = [
                 'sri'     => $this->builder->sri($asset),
                 'version' => $this->builder->versioning($asset)

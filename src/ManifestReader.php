@@ -27,9 +27,13 @@ class ManifestReader
     public function getManifest(string $file): array
     {
         if (File::exists($file)) {
+
             return json_decode(file_get_contents($file), true);
+
         } else {
+
             throw new Exception('Incorrect file path or file does not exist for '.$file);
+
         }
     }
 

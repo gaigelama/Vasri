@@ -67,9 +67,13 @@ class Vasri
         string $keyword = 'anonymous'
     ): string {
         if (self::isPublicFile($file) === true) {
+
             return $this->addAttributes($file, $enableVersioning, $enableSRI, $keyword);
+
         } else {
+
             throw new Exception('Incorrect file path or file does not exist for local asset');
+
         }
     }
 
@@ -100,20 +104,36 @@ class Vasri
         $output = $this->getSourceAttribute($file, $this->getVersioning($file));
 
         if ($this->appEnvironment === 'local' && ! config('vasri.local-versioning') || ! $enableVersioning) {
+
             $output = $this->getSourceAttribute($file);
+
         }
         if ($enableSRI) {
+
             $output .= $this->getSRI($file, $keyword);
+
         }
 
         return $output;
     }
 
+    /**
+     * @param  string  $file
+     *
+     * @return string
+     */
     private function getVersioning(string $file): string
     {
         return $this->vasriManifest[$file]['version'];
     }
 
+    /**
+     * @param  string  $file
+     * @param  string  $version
+     *
+     * @return string
+     * @throws Exception
+     */
     private function getSourceAttribute(string $file, string $version = ''): string
     {
         return $this->builder->attribute($file).'="'.$file.$version.'"';

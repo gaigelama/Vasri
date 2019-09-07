@@ -41,7 +41,7 @@ class Builder
      * @return string
      * @throws Exception
      */
-    public function sri(string $file)
+    public function sri(string $file): string
     {
         $algorithm = self::selectAlgorithm();
 
@@ -57,7 +57,7 @@ class Builder
      *
      * @return string
      */
-    public function versioning(string $file)
+    public function versioning(string $file): string
     {
         return '?id='.hash_file('md5', public_path($file));
     }
@@ -112,15 +112,21 @@ class Builder
     private static function selectAlgorithm(): string
     {
         if ( ! empty(config('vasri.hash-algorithm'))) {
+
             $algorithm = config('vasri.hash-algorithm');
+
             if ($algorithm !== self::SHA256
                 && $algorithm !== self::SHA384
                 && $algorithm !== self::SHA512
             ) {
+
                 throw new Exception('Invalid or Unsupported Hash Algorithm');
+
             }
         } else {
+
             $algorithm = self::SHA384;
+
         }
 
         return $algorithm;

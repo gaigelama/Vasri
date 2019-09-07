@@ -3,6 +3,7 @@
 
 namespace ExoUNX\Vasri\Commands;
 
+use Exception;
 use Illuminate\Console\Command;
 use ExoUNX\Vasri\ManifestBuilder;
 
@@ -29,20 +30,26 @@ class VasriCommand extends Command
     protected $description = 'Build Manifest';
 
     /**
+     * @var ManifestBuilder
+     */
+    private $manifest;
+
+    /**
      * Inherits constructor from Illuminate\Console\Command
      */
     public function __construct()
     {
         parent::__construct();
+        $this->manifest = new ManifestBuilder();
+
     }
 
     /**
      * The executing method
+     * @throws Exception
      */
     public function handle()
     {
-        $manifest = new ManifestBuilder();
-
-        $manifest->deployManifest();
+        $this->manifest->deployManifest();
     }
 }
