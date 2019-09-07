@@ -117,11 +117,23 @@ class Vasri
         return $output;
     }
 
+    /**
+     * @param  string  $file
+     *
+     * @return string
+     */
     private function getVersioning(string $file): string
     {
         return $this->vasriManifest[$file]['version'];
     }
 
+    /**
+     * @param  string  $file
+     * @param  string  $version
+     *
+     * @return string
+     * @throws Exception
+     */
     private function getSourceAttribute(string $file, string $version = ''): string
     {
         return $this->builder->attribute($file).'="'.$file.$version.'"';
