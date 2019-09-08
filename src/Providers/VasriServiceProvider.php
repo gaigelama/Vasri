@@ -39,7 +39,7 @@ class VasriServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            base_path('/config/vasri.php'), 'vasri'
+            base_path('/../config/vasri.php'), 'vasri'
         );
         $this->commands([
             \ExoUNX\Vasri\Commands\VasriCommand::class,
