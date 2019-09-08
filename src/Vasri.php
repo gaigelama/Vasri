@@ -57,6 +57,8 @@ class Vasri
     }
 
     /**
+     * The Vasri helper function
+     *
      * @param  string  $file
      * @param  bool  $enableVersioning
      * @param  bool  $enableSRI
@@ -84,6 +86,8 @@ class Vasri
     }
 
     /**
+     * Fetches the SRI hash from the Vasri Manifest and adds the crossorigin attribute
+     *
      * @param  string  $file
      *
      * @param  string  $keyword
@@ -97,6 +101,8 @@ class Vasri
     }
 
     /**
+     * Builds all the attributes
+     *
      * @param  string  $file
      * @param  bool  $enableVersioning
      *
@@ -128,6 +134,8 @@ class Vasri
     }
 
     /**
+     * Fetches the version query string from the Vasri Manifest
+     *
      * @param  string  $file
      *
      * @return string
@@ -137,6 +145,14 @@ class Vasri
         return $this->vasriManifest[$file]['version'];
     }
 
+    /**
+     * Figures out whether or not to toggle versioning and sri
+     *
+     * @param  bool  $enableVersioning
+     * @param  bool  $enableSRI
+     *
+     * @return array
+     */
     private function getOptions(bool $enableVersioning, bool $enableSRI): array
     {
         return [
@@ -150,6 +166,8 @@ class Vasri
     }
 
     /**
+     * Gets source attribute based on the extension, adds file path and version
+     *
      * @param  string  $file
      * @param  string  $version
      *
@@ -162,6 +180,7 @@ class Vasri
     }
 
     /**
+     * Checks if the file is in the Laravel public path
      *
      * @param  string  $file
      *

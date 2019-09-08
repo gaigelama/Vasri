@@ -19,6 +19,8 @@ class ManifestReader
 {
 
     /**
+     * Loads the Manifest json file and decodes it into an array
+     *
      * @param  string  $file
      *
      * @return array
