@@ -66,7 +66,7 @@ class Vasri
         bool $enableSRI = true,
         string $keyword = 'anonymous'
     ): string {
-        if (self::isPublicFile($file) === true) {
+        if (self::isPublicFile($file)) {
 
             return $this->addAttributes($file, $enableVersioning, $enableSRI, $keyword);
 
