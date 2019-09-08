@@ -40,12 +40,18 @@ class Vasri
     private $appEnvironment;
 
     /**
+     * @var
+     */
+    private $vasriConfig;
+
+    /**
      * Vasri constructor.
      */
     public function __construct()
     {
         $this->builder        = new Builder();
         $this->manifestReader = new ManifestReader();
+        $this->vasriConfig    = config('vasri');
         $this->vasriManifest  = $this->manifestReader->getManifest(base_path('vasri-manifest.json'));
         $this->appEnvironment = env('APP_ENV', 'production');
     }
@@ -102,14 +108,17 @@ class Vasri
      */
     private function addAttributes(string $file, bool $enableVersioning, bool $enableSRI, string $keyword): string
     {
+
+        $option = $this->getOptions($enableVersioning, $enableSRI);
+
         $output = $this->getSourceAttribute($file, $this->getVersioning($file));
 
-        if ($this->appEnvironment === 'local' && ! config('vasri.local-versioning') || ! $enableVersioning) {
+        if ( ! $option['versioning']) {
 
             $output = $this->getSourceAttribute($file);
 
         }
-        if ($enableSRI) {
+        if ($option['sri']) {
 
             $output = sprintf('%s %s', $output, $this->getSRI($file, $keyword));
 
@@ -126,6 +135,18 @@ class Vasri
     private function getVersioning(string $file): string
     {
         return $this->vasriManifest[$file]['version'];
+    }
+
+    private function getOptions(bool $enableVersioning, bool $enableSRI): array
+    {
+        return [
+            'versioning' => ! ($this->appEnvironment === 'local'
+                               && ! config('vasri.local-versioning')
+                               || ! $enableVersioning
+                               || ! $this->vasriConfig['versioning']
+            ),
+            'sri'        => $enableSRI && $this->vasriConfig['sri'],
+        ];
     }
 
     /**
