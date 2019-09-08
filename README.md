@@ -1,6 +1,11 @@
+[![Latest Stable Version](https://poser.pugx.org/exounx/vasri/v/stable)](https://packagist.org/packages/exounx/vasri)
+[![Total Downloads](https://poser.pugx.org/exounx/vasri/downloads)](https://packagist.org/packages/exounx/vasri)
+[![Latest Unstable Version](https://poser.pugx.org/exounx/vasri/v/unstable)](https://packagist.org/packages/exounx/vasri)
 [![Build Status](https://scrutinizer-ci.com/g/ExoUNX/Vasri/badges/build.png?b=master)](https://scrutinizer-ci.com/g/ExoUNX/Vasri/build-status/dev) 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ExoUNX/Vasri/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ExoUNX/Vasri/?branch=dev)
 ![License](https://img.shields.io/github/license/ExoUNX/Vasri.svg)
+
+default
 
 # Vasri
 Easy subresource integrity and versioning for local assets
@@ -20,7 +25,7 @@ php artisan vendor:publish --provider="ExoUNX\Vasri\Providers\VasriServiceProvid
 
 ## Usage
 
-Note: If you use a CDN like Cloudflare that processes your assets at their edge servers, I recommend you disable it and process your scripts beforehand otherwise resources may not load
+Note: If you use a CDN like Cloudflare that processes your assets at their edge servers, I recommend you disable it and process your scripts beforehand otherwise assets may not load
 
 You'll need to generate the manifest first and every time the assets change
 

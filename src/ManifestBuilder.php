@@ -59,6 +59,8 @@ class ManifestBuilder
     }
 
     /**
+     * Builds the basic asset list
+     *
      * @param  array  $mixManifest
      * @param  array  $vasriConfigAssets
      *
@@ -89,6 +91,8 @@ class ManifestBuilder
     }
 
     /**
+     * Builds the manifest based off the asset list
+     *
      * @return array
      * @throws Exception
      */
@@ -112,6 +116,8 @@ class ManifestBuilder
     }
 
     /**
+     * Deploys the manifest as json file in the Laravel base directory
+     *
      * @throws Exception
      */
     public function deployManifest(): void

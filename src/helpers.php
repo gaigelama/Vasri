@@ -4,7 +4,7 @@ use ExoUNX\Vasri\Vasri;
 
 if ( ! function_exists('vasri')) {
     /**
-     * Get file and generate version and SRI if enabled
+     * The Vasri helper function
      *
      * @param  string  $path
      * @param  bool  $versioning
