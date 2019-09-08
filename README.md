@@ -1,6 +1,11 @@
+[![Latest Stable Version](https://poser.pugx.org/exounx/vasri/v/stable)](https://packagist.org/packages/exounx/vasri)
+[![Total Downloads](https://poser.pugx.org/exounx/vasri/downloads)](https://packagist.org/packages/exounx/vasri)
+[![Latest Unstable Version](https://poser.pugx.org/exounx/vasri/v/unstable)](https://packagist.org/packages/exounx/vasri)
 [![Build Status](https://scrutinizer-ci.com/g/ExoUNX/Vasri/badges/build.png?b=master)](https://scrutinizer-ci.com/g/ExoUNX/Vasri/build-status/dev) 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ExoUNX/Vasri/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ExoUNX/Vasri/?branch=dev)
 ![License](https://img.shields.io/github/license/ExoUNX/Vasri.svg)
+
+default
 
 # Vasri
 Easy subresource integrity and versioning for local assets
