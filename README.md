@@ -25,7 +25,7 @@ php artisan vendor:publish --provider="ExoUNX\Vasri\Providers\VasriServiceProvid
 
 ## Usage
 
-Note: If you use a CDN like Cloudflare that processes your assets at their edge servers, I recommend you disable it and process your scripts beforehand otherwise resources may not load
+Note: If you use a CDN like Cloudflare that processes your assets at their edge servers, I recommend you disable it and process your scripts beforehand otherwise assets may not load
 
 You'll need to generate the manifest first and every time the assets change
 
