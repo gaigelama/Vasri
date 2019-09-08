@@ -32,7 +32,7 @@ class ManifestReader
 
         } else {
 
-            throw new Exception('Incorrect file path or file does not exist for '.$file);
+            throw new Exception("Incorrect file path or file does not exist for $file");
 
         }
     }

@@ -45,9 +45,9 @@ class Builder
     {
         $algorithm = self::selectAlgorithm();
 
-        return $algorithm.'-'.base64_encode(
-                hash_file($algorithm, public_path($file), true)
-            );
+        return sprintf('%s-%s', $algorithm, base64_encode(
+            hash_file($algorithm, public_path($file), true)
+        ));
     }
 
     /**
@@ -59,7 +59,7 @@ class Builder
      */
     public function versioning(string $file): string
     {
-        return '?id='.hash_file('md5', public_path($file));
+        return sprintf('?id=%s', hash_file('md5', public_path($file)));
     }
 
     /**
@@ -100,7 +100,7 @@ class Builder
      */
     public function crossOrigin(string $keyword): string
     {
-        return 'crossorigin="'.$keyword.'"';
+        return sprintf('crossorigin="%s"', $keyword);
     }
 
     /**
