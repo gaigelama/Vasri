@@ -75,23 +75,10 @@ class ManifestBuilder
      */
     private function buildAssets(array $mixManifest = [], array $vasriConfigAssets = []): array
     {
-        $vasriManifest = [];
 
         if ($this->isMixManifestEnabled && File::exists($this->mixManifestPath)) {
 
-            if ($this->isMixManifestAltEnabled) {
-
-                foreach ($mixManifest as $key => $val) {
-                    $vasriManifest[] = $val;
-                }
-
-            } else {
-
-                foreach ($mixManifest as $key => $val) {
-                    $vasriManifest[] = $key;
-                }
-
-            }
+            $this->loopManifest($mixManifest, $vasriManifest);
 
         } elseif ( ! empty($vasriConfigAssets)) {
 
@@ -104,6 +91,27 @@ class ManifestBuilder
         }
 
         return $vasriManifest;
+    }
+
+    /**
+     * @param  array  $mixManifest
+     * @param  array  $vasriManifest
+     */
+    private function loopManifest(array $mixManifest, array &$vasriManifest = [])
+    {
+        if ($this->isMixManifestAltEnabled) {
+
+            foreach ($mixManifest as $key => $val) {
+                $vasriManifest[] = $val;
+            }
+
+        } else {
+
+            foreach ($mixManifest as $key => $val) {
+                $vasriManifest[] = $key;
+            }
+
+        }
     }
 
     /**
