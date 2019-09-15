@@ -45,15 +45,21 @@ class Vasri
     private $vasriConfig;
 
     /**
+     * @var
+     */
+    private $isMixManifestAltEnabled;
+
+    /**
      * Vasri constructor.
      */
     public function __construct()
     {
-        $this->builder        = new Builder();
-        $this->manifestReader = new ManifestReader();
-        $this->vasriConfig    = config('vasri');
-        $this->vasriManifest  = $this->manifestReader->getManifest(base_path('vasri-manifest.json'));
-        $this->appEnvironment = env('APP_ENV', 'production');
+        $this->builder                 = new Builder();
+        $this->manifestReader          = new ManifestReader();
+        $this->vasriConfig             = config('vasri');
+        $this->isMixManifestAltEnabled = $this->vasriConfig['mix-manifest-alt'];
+        $this->vasriManifest           = $this->manifestReader->getManifest(base_path('vasri-manifest.json'));
+        $this->appEnvironment          = env('APP_ENV', 'production');
     }
 
     /**
@@ -75,6 +81,8 @@ class Vasri
         string $keyword = 'anonymous'
     ): string {
         if (self::isPublicFile($file)) {
+
+            $this->checkFileName($file);
 
             return $this->addAttributes($file, $enableVersioning, $enableSRI, $keyword);
 
@@ -98,6 +106,18 @@ class Vasri
     {
 
         return sprintf('integrity="%s" %s', $this->vasriManifest[$file]['sri'], $this->builder->crossOrigin($keyword));
+    }
+
+    /**
+     * @param  string  $file
+     */
+    private function checkFileName(string &$file): void
+    {
+        if ($this->isMixManifestAltEnabled) {
+
+            $file = $this->vasriManifest[$file]['alt'];
+
+        }
     }
 
     /**
