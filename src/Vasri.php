@@ -114,14 +114,12 @@ class Vasri
      */
     private function addAttributes(string $file, bool $enableVersioning, bool $enableSRI, string $keyword): string
     {
-
         $option = $this->getOptions($enableVersioning, $enableSRI);
+        $output = $this->getSourceAttribute($file);
 
-        $output = $this->getSourceAttribute($file, $this->getVersioning($file));
+        if ($option['versioning']) {
 
-        if ( ! $option['versioning']) {
-
-            $output = $this->getSourceAttribute($file);
+            $output = $this->getSourceAttribute($file, $this->getVersioning($file));
 
         }
         if ($option['sri']) {

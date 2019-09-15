@@ -41,6 +41,11 @@ class ManifestBuilder
     private $manifestReader;
 
     /**
+     * @var mixed
+     */
+    private $isMixManifestAltEnabled;
+
+    /**
      * @var Builder
      */
     private $builder;
@@ -51,11 +56,12 @@ class ManifestBuilder
      */
     public function __construct()
     {
-        $this->manifestReader       = new ManifestReader();
-        $this->builder              = new Builder();
-        $this->vasriConfig          = config('vasri');
-        $this->isMixManifestEnabled = $this->vasriConfig['mix-manifest'];
-        $this->mixManifestPath      = public_path('mix-manifest.json');
+        $this->manifestReader          = new ManifestReader();
+        $this->builder                 = new Builder();
+        $this->vasriConfig             = config('vasri');
+        $this->isMixManifestEnabled    = $this->vasriConfig['mix-manifest'];
+        $this->isMixManifestAltEnabled = $this->vasriConfig['mix-manifest-alt'];
+        $this->mixManifestPath         = public_path('mix-manifest.json');
     }
 
     /**
@@ -69,13 +75,10 @@ class ManifestBuilder
      */
     private function buildAssets(array $mixManifest = [], array $vasriConfigAssets = []): array
     {
-        $vasriManifest = [];
 
         if ($this->isMixManifestEnabled && File::exists($this->mixManifestPath)) {
 
-            foreach ($mixManifest as $key => $val) {
-                $vasriManifest[] = $key;
-            }
+            $this->loopManifest($mixManifest, $vasriManifest);
 
         } elseif ( ! empty($vasriConfigAssets)) {
 
@@ -88,6 +91,27 @@ class ManifestBuilder
         }
 
         return $vasriManifest;
+    }
+
+    /**
+     * @param  array  $mixManifest
+     * @param  array  $vasriManifest
+     */
+    private function loopManifest(array $mixManifest, array &$vasriManifest = []): void
+    {
+        if ($this->isMixManifestAltEnabled) {
+
+            foreach ($mixManifest as $key => $val) {
+                $vasriManifest[] = $val;
+            }
+
+        } else {
+
+            foreach ($mixManifest as $key => $val) {
+                $vasriManifest[] = $key;
+            }
+
+        }
     }
 
     /**

@@ -5,8 +5,6 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ExoUNX/Vasri/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ExoUNX/Vasri/?branch=dev)
 ![License](https://img.shields.io/github/license/ExoUNX/Vasri.svg)
 
-default
-
 # Vasri
 Easy subresource integrity and versioning for local assets
 
