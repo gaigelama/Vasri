@@ -51,11 +51,12 @@ class ManifestBuilder
      */
     public function __construct()
     {
-        $this->manifestReader       = new ManifestReader();
-        $this->builder              = new Builder();
-        $this->vasriConfig          = config('vasri');
-        $this->isMixManifestEnabled = $this->vasriConfig['mix-manifest'];
-        $this->mixManifestPath      = public_path('mix-manifest.json');
+        $this->manifestReader          = new ManifestReader();
+        $this->builder                 = new Builder();
+        $this->vasriConfig             = config('vasri');
+        $this->isMixManifestEnabled    = $this->vasriConfig['mix-manifest'];
+        $this->isMixManifestAltEnabled = $this->vasriConfig['mix-manifest-alt'];
+        $this->mixManifestPath         = public_path('mix-manifest.json');
     }
 
     /**
@@ -73,8 +74,18 @@ class ManifestBuilder
 
         if ($this->isMixManifestEnabled && File::exists($this->mixManifestPath)) {
 
-            foreach ($mixManifest as $key => $val) {
-                $vasriManifest[] = $key;
+            if ($this->isMixManifestAltEnabled) {
+
+                foreach ($mixManifest as $key => $val) {
+                    $vasriManifest[] = $val;
+                }
+
+            } else {
+
+                foreach ($mixManifest as $key => $val) {
+                    $vasriManifest[] = $key;
+                }
+
             }
 
         } elseif ( ! empty($vasriConfigAssets)) {
