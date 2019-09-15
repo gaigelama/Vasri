@@ -104,7 +104,11 @@ class ManifestBuilder
         if ($this->isMixManifestAltEnabled) {
 
             foreach ($mixManifest as $key => $val) {
-                $vasriManifest[] = $val;
+                $vasriManifest[] = [
+                    $key => [
+                        'alt' => $val
+                    ]
+                ];
             }
 
         } else {
