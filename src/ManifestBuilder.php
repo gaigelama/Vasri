@@ -104,11 +104,7 @@ class ManifestBuilder
         if ($this->isMixManifestAltEnabled) {
 
             foreach ($mixManifest as $key => $val) {
-                $vasriManifest[] = [
-                    $key => [
-                        'alt' => $val
-                    ]
-                ];
+                $vasriManifest[$key] = $val;
             }
 
         } else {
@@ -134,11 +130,12 @@ class ManifestBuilder
             $this->buildAssets(
                 $this->manifestReader->getManifest($this->mixManifestPath),
                 $this->vasriConfig['assets']
-            ) as $asset
+            ) as $asset => $alt
         ) {
             $manifest[$asset] = [
-                'sri'     => $this->builder->sri($asset),
-                'version' => $this->builder->versioning($asset)
+                'sri'     => $this->builder->sri($alt),
+                'version' => $this->builder->versioning($alt),
+                'alt'     => $alt
             ];
         }
 

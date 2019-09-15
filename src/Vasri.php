@@ -80,11 +80,18 @@ class Vasri
         bool $enableSRI = true,
         string $keyword = 'anonymous'
     ): string {
-        if (self::isPublicFile($file)) {
 
-            $this->checkFileName($file);
+        $altFile = '';
 
-            return $this->addAttributes($file, $enableVersioning, $enableSRI, $keyword);
+        if ($this->isMixManifestAltEnabled) {
+
+            $altFile = $this->vasriManifest[$file]['alt'];
+
+        }
+
+        if (self::isPublicFile($file) || self::isPublicFile($altFile)) {
+
+            return $this->addAttributes($file, $altFile, $enableVersioning, $enableSRI, $keyword);
 
         } else {
 
@@ -109,21 +116,10 @@ class Vasri
     }
 
     /**
-     * @param  string  $file
-     */
-    private function checkFileName(string &$file): void
-    {
-        if ($this->isMixManifestAltEnabled) {
-
-            $file = $this->vasriManifest[$file]['alt'];
-
-        }
-    }
-
-    /**
      * Builds all the attributes
      *
      * @param  string  $file
+     * @param  string  $altFile
      * @param  bool  $enableVersioning
      *
      * @param  bool  $enableSRI
@@ -132,14 +128,27 @@ class Vasri
      * @return string
      * @throws Exception
      */
-    private function addAttributes(string $file, bool $enableVersioning, bool $enableSRI, string $keyword): string
-    {
+    private function addAttributes(
+        string $file,
+        string $altFile,
+        bool $enableVersioning,
+        bool $enableSRI,
+        string $keyword
+    ): string {
+
+
         $option = $this->getOptions($enableVersioning, $enableSRI);
         $output = $this->getSourceAttribute($file);
 
         if ($option['versioning']) {
 
-            $output = $this->getSourceAttribute($file, $this->getVersioning($file));
+            $path = $file;
+
+            if ($this->isMixManifestAltEnabled) {
+                $path = $altFile;
+            }
+
+            $output = $this->getSourceAttribute($path, $this->getVersioning($file));
 
         }
         if ($option['sri']) {
