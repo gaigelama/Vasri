@@ -41,6 +41,11 @@ class ManifestBuilder
     private $manifestReader;
 
     /**
+     * @var mixed
+     */
+    private $isMixManifestAltEnabled;
+
+    /**
      * @var Builder
      */
     private $builder;
