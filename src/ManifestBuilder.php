@@ -76,6 +76,8 @@ class ManifestBuilder
     private function buildAssets(array $mixManifest = [], array $vasriConfigAssets = []): array
     {
 
+        $vasriManifest = [];
+
         if ($this->isMixManifestEnabled && File::exists($this->mixManifestPath)) {
 
             $this->loopManifest($mixManifest, $vasriManifest);
