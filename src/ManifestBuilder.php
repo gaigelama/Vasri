@@ -97,7 +97,7 @@ class ManifestBuilder
      * @param  array  $mixManifest
      * @param  array  $vasriManifest
      */
-    private function loopManifest(array $mixManifest, array &$vasriManifest = [])
+    private function loopManifest(array $mixManifest, array &$vasriManifest = []): void
     {
         if ($this->isMixManifestAltEnabled) {
 
