@@ -132,11 +132,13 @@ class ManifestBuilder
                 $this->vasriConfig['assets']
             ) as $asset => $alt
         ) {
-            $manifest[$asset] = [
-                'sri'     => $this->builder->sri($alt),
-                'version' => $this->builder->versioning($alt),
-                'alt'     => $alt
-            ];
+            if ($this->builder->parseExtension($asset) === 'js' || $this->builder->parseExtension($asset) === 'css') {
+                $manifest[$asset] = [
+                    'sri'     => $this->builder->sri($alt),
+                    'version' => $this->builder->versioning($alt),
+                    'alt'     => $alt
+                ];
+            }
         }
 
         return $manifest;
